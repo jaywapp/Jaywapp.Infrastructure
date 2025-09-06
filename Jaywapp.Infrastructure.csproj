@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <!-- Multi-target: core utilities on netstandard; WPF-enabled on desktop targets -->
-    <TargetFrameworks>netstandard2.0;net48;net6.0-windows7.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
 
     <!-- NuGet metadata -->
     <PackageId>Jaywapp.Infrastructure</PackageId>
