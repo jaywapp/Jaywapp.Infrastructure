@@ -44,4 +44,4 @@ jobs:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
         shell: pwsh
         run: |
-          dotnet nuget push nupkg/*.nupkg --api-key "$env:NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate -v minimal
+          dotnet nuget push nupkg/*.nupkg --api-key "$env:NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate
