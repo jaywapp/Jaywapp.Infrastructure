@@ -12,9 +12,24 @@ namespace Jaywapp.Infrastructure.Helpers
         /// <typeparam name="T"></typeparam>
         /// <param name="collection"></param>
         /// <returns></returns>
-        public static bool IsNullOrEmpty<T>(IEnumerable<T> collection)
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> collection)
         {
             return collection == null || !collection.Any();
+        }
+
+        /// <summary>
+        /// IEnumerable<T> 컬렉션에서 null이 아닌 요소만 필터링하여 반환합니다.
+        /// </summary>
+        /// <typeparam name="T">컬렉션 요소의 타입입니다.</typeparam>
+        /// <param name="enumerable">확장 메서드가 적용될 소스 컬렉션입니다.</param>
+        /// <returns>null 요소를 제외한 새로운 IEnumerable<T> 컬렉션입니다.</returns>
+        /// <remarks>
+        /// 이 메서드는 LINQ의 Where 메서드를 사용하여 컬렉션의 각 요소를 확인하고,
+        /// null이 아닌 요소만 포함하는 새로운 컬렉션을 지연 실행(lazy evaluation) 방식으로 생성합니다.
+        /// </remarks>
+        public static IEnumerable<T> IgnoreNull<T>(this IEnumerable<T> enumerable)
+        {
+            return enumerable.Where(x => x != null);
         }
 
         /// <summary>
