@@ -1,5 +1,8 @@
 ﻿namespace Jaywapp.Infrastructure.Interfaces
 {
+/// <summary>
+/// 설명
+/// </summary>
     public interface IFilterPropertySelector
     {
         /// <summary>

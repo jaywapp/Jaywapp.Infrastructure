@@ -3,12 +3,18 @@ using Jaywapp.Infrastructure.Attributes;
 
 namespace Jaywapp.Infrastructure
 {
+/// <summary>
+/// 설명
+/// </summary>
     public enum eLogicalOperator
     {
         AND,
         OR,
     }
 
+/// <summary>
+/// 설명
+/// </summary>
     public enum eFilteringOperator
     {
         [Filterable(eFilteringType.String)]
@@ -60,6 +66,9 @@ namespace Jaywapp.Infrastructure
         EndsWith,
     }
 
+/// <summary>
+/// 설명
+/// </summary>
     public enum eFilteringType
     {
         String,

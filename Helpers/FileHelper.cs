@@ -6,8 +6,16 @@ using System.Text;
 
 namespace Jaywapp.Infrastructure.Helpers
 {
+/// <summary>
+/// 설명
+/// </summary>
     public static class FileHelper
     {
+/// <summary>
+/// 설명
+/// </summary>
+/// <param name="path">설명</param>
+/// <returns>설명</returns>
         public static IEnumerable<string> ReadLines(this string path)
         {
             using (var reader = new StreamReader(path))
@@ -19,11 +27,20 @@ namespace Jaywapp.Infrastructure.Helpers
             }
         }
 
+/// <summary>
+/// 설명
+/// </summary>
+/// <param name="zipPath">설명</param>
+/// <param name="dirPath">설명</param>
         public static void Decompress(this string zipPath, string dirPath)
         {
             ZipFile.ExtractToDirectory(zipPath, dirPath);
         }
 
+/// <summary>
+/// 설명
+/// </summary>
+/// <param name="path">설명</param>
         public static void ClearDirectory(this string path)
         {
             if (!Directory.Exists(path))
@@ -33,6 +50,11 @@ namespace Jaywapp.Infrastructure.Helpers
             Directory.CreateDirectory(path);
         }
 
+/// <summary>
+/// 설명
+/// </summary>
+/// <param name="dirPath">설명</param>
+/// <returns>설명</returns>
         public static List<string> GetFiles(string dirPath)
         {
             var result = new List<string>();
@@ -53,6 +75,12 @@ namespace Jaywapp.Infrastructure.Helpers
             return result;
         }
 
+/// <summary>
+/// 설명
+/// </summary>
+/// <param name="path">설명</param>
+/// <param name="extension">설명</param>
+/// <returns>설명</returns>
         public static bool IsExtension(string path, string extension)
         {
             if (!File.Exists(path))

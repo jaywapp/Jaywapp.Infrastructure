@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace Jaywapp.Infrastructure.Helpers
 {
+/// <summary>
+/// 설명
+/// </summary>
     public static class EnumerableHelper
     {
         /// <summary>

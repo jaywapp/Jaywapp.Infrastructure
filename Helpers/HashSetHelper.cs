@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace Jaywapp.Infrastructure.Helpers
 {
+/// <summary>
+/// 설명
+/// </summary>
     public static class HashSetHelper
     {
         public static void AddRange<T>(this HashSet<T> hashSet, IEnumerable<T> targets)

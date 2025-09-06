@@ -5,8 +5,16 @@ using System.Windows.Media;
 
 namespace Jaywapp.Infrastructure.Helpers
 {
+/// <summary>
+/// 설명
+/// </summary>
     public static class ColorHelper
     {
+/// <summary>
+/// 설명
+/// </summary>
+/// <param name="color">설명</param>
+/// <returns>설명</returns>
         public static string GetColorName(this Color color)
         {
             Type colors = typeof(Colors);
@@ -19,6 +27,12 @@ namespace Jaywapp.Infrastructure.Helpers
             return color.ToString();
         }
 
+/// <summary>
+/// 설명
+/// </summary>
+/// <param name="str">설명</param>
+/// <param name="null">설명</param>
+/// <returns>설명</returns>
         public static Color ToColor(this string str, Color? defaultColor = null)
         {
             try
@@ -31,6 +45,12 @@ namespace Jaywapp.Infrastructure.Helpers
             return defaultColor ?? Colors.Black;
         }
 
+/// <summary>
+/// 설명
+/// </summary>
+/// <param name="str">설명</param>
+/// <param name="color">설명</param>
+/// <returns>설명</returns>
         public static bool TryConvertColor(this string str, out Color color)
         {
             color = default;

@@ -3,6 +3,9 @@ using Jaywapp.Infrastructure.Interfaces;
 
 namespace Jaywapp.Infrastructure.Models
 {
+/// <summary>
+/// 설명
+/// </summary>
     public class FilterGroup : IFilter
     {
         #region Properties

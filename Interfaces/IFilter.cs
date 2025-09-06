@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace Jaywapp.Infrastructure.Interfaces
 {
+/// <summary>
+/// 설명
+/// </summary>
     public interface IFilter
     {
         /// <summary>
@@ -18,6 +21,9 @@ namespace Jaywapp.Infrastructure.Interfaces
         bool IsFiltered(object target);
     }
 
+/// <summary>
+/// 설명
+/// </summary>
     public static class FilterExt
     {
         /// <summary>

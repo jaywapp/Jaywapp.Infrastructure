@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Jaywapp.Infrastructure.Helpers
 {
+/// <summary>
+/// 설명
+/// </summary>
     public static class DataTableHelper
     {
         /// <summary>

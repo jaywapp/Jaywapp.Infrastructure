@@ -7,6 +7,9 @@ using System.Text;
 
 namespace Jaywapp.Infrastructure.Helpers
 {
+/// <summary>
+/// 설명
+/// </summary>
     public static class EnumHelper
     {
         /// <summary>
@@ -103,6 +106,13 @@ namespace Jaywapp.Infrastructure.Helpers
             return false;
         }
 
+/// <summary>
+/// 설명
+/// </summary>
+/// <param name="description">설명</param>
+/// <param name="type">설명</param>
+/// <param name="result">설명</param>
+/// <returns>설명</returns>
         public static bool TryParseValueFromDescription(string description, Type type, out object result)
         {
             result = default;
