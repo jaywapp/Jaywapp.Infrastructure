@@ -107,12 +107,12 @@ namespace Jaywapp.Infrastructure.Helpers
         }
 
 /// <summary>
-/// Parse Value From Description를(을) 시도하고, 성공 여부를 반환합니다.
+/// Description과 일치하는 열거형 값을 찾습니다.
 /// </summary>
-/// <param name="description">매개 변수</param>
-/// <param name="type">형식</param>
-/// <param name="result">매개 변수</param>
-/// <returns>조건을 만족하면 true를 반환합니다.</returns>
+/// <param name="description">열거형 항목의 Description 또는 이름</param>
+/// <param name="type">대상 열거형 형식</param>
+/// <param name="result">찾은 열거형 값</param>
+/// <returns>성공하면 true, 실패하면 false</returns>
         public static bool TryParseValueFromDescription(string description, Type type, out object result)
         {
             result = default;

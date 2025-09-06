@@ -10,11 +10,11 @@ namespace Jaywapp.Infrastructure.Helpers
     public static class CollectionHelper
     {
         /// <summary>
-        /// <paramref name="collection"/>에 <paramref name="items"/>를 추가합니다.
+        /// 지정한 시퀀스의 항목들을 컬렉션에 순차적으로 추가합니다.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="items"></param>
+        /// <typeparam name="T">항목 형식</typeparam>
+        /// <param name="collection">대상 컬렉션</param>
+        /// <param name="items">추가할 항목 시퀀스</param>
         public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
         {
             foreach (var item in items)
