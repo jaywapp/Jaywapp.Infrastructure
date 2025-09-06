@@ -6,12 +6,12 @@ namespace Jaywapp.Infrastructure.Attributes
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
 /// <summary>
-/// 설명
+/// 사용자 지정 특성을 정의합니다.
 /// </summary>
     public class FilterableAttribute : System.Attribute
     {
 /// <summary>
-/// 설명
+/// Type를(을) 가져오거나 설정합니다.
 /// </summary>
         public eFilteringType Type { get; }
 
@@ -22,16 +22,16 @@ namespace Jaywapp.Infrastructure.Attributes
     }
 
 /// <summary>
-/// 설명
+/// 확장 메서드를 제공합니다.
 /// </summary>
     public static class FilterableTargetFieldExt
     {
 /// <summary>
-/// 설명
+/// Get Filterable Target Field를(을) 시도하고, 성공 여부를 반환합니다.
 /// </summary>
-/// <param name="value">설명</param>
-/// <param name="attr">설명</param>
-/// <returns>설명</returns>
+/// <param name="value">입력 값</param>
+/// <param name="attr">특성</param>
+/// <returns>조건을 만족하면 true를 반환합니다.</returns>
         public static bool TryGetFilterableTargetField(this Enum value, out FilterableAttribute attr)
         {
             var field = value.GetType().GetField(value.ToString());
@@ -40,11 +40,11 @@ namespace Jaywapp.Infrastructure.Attributes
         }
 
 /// <summary>
-/// 설명
+/// Target Field인지 여부를 확인합니다.
 /// </summary>
-/// <param name="value">설명</param>
-/// <param name="type">설명</param>
-/// <returns>설명</returns>
+/// <param name="value">입력 값</param>
+/// <param name="type">형식</param>
+/// <returns>조건을 만족하면 true를 반환합니다.</returns>
         public static bool IsTargetField(this Enum value, eFilteringType type)
         {
             var field = value.GetType().GetField(value.ToString());

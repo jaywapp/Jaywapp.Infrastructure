@@ -4,7 +4,7 @@ using System.Linq;
 namespace Jaywapp.Infrastructure.Interfaces
 {
 /// <summary>
-/// 설명
+/// Filter 인터페이스를 정의합니다.
 /// </summary>
     public interface IFilter
     {
@@ -22,7 +22,7 @@ namespace Jaywapp.Infrastructure.Interfaces
     }
 
 /// <summary>
-/// 설명
+/// 확장 메서드를 제공합니다.
 /// </summary>
     public static class FilterExt
     {

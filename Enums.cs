@@ -4,7 +4,7 @@ using Jaywapp.Infrastructure.Attributes;
 namespace Jaywapp.Infrastructure
 {
 /// <summary>
-/// 설명
+/// e Logical Operator를(을) 제공합니다.
 /// </summary>
     public enum eLogicalOperator
     {
@@ -13,7 +13,7 @@ namespace Jaywapp.Infrastructure
     }
 
 /// <summary>
-/// 설명
+/// e Filtering Operator를(을) 제공합니다.
 /// </summary>
     public enum eFilteringOperator
     {
@@ -67,7 +67,7 @@ namespace Jaywapp.Infrastructure
     }
 
 /// <summary>
-/// 설명
+/// e Filtering Type를(을) 제공합니다.
 /// </summary>
     public enum eFilteringType
     {

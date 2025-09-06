@@ -4,7 +4,7 @@ using Jaywapp.Infrastructure.Interfaces;
 namespace Jaywapp.Infrastructure.Models
 {
 /// <summary>
-/// 설명
+/// Filter Group를(을) 제공합니다.
 /// </summary>
     public class FilterGroup : IFilter
     {

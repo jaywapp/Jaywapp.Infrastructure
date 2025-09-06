@@ -5,7 +5,7 @@ using Jaywapp.Infrastructure.Interfaces;
 namespace Jaywapp.Infrastructure.Models
 {
 /// <summary>
-/// 설명
+/// Filter를(을) 제공합니다.
 /// </summary>
     public class Filter : IFilter
     {

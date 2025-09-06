@@ -1,7 +1,7 @@
 ﻿namespace Jaywapp.Infrastructure.Interfaces
 {
 /// <summary>
-/// 설명
+/// Filter Property Selector 인터페이스를 정의합니다.
 /// </summary>
     public interface IFilterPropertySelector
     {

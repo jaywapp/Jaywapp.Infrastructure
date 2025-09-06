@@ -8,7 +8,7 @@ using System.Text;
 namespace Jaywapp.Infrastructure.Helpers
 {
 /// <summary>
-/// 설명
+/// 유틸리티 메서드를 제공합니다.
 /// </summary>
     public static class EnumHelper
     {
@@ -107,12 +107,12 @@ namespace Jaywapp.Infrastructure.Helpers
         }
 
 /// <summary>
-/// 설명
+/// Parse Value From Description를(을) 시도하고, 성공 여부를 반환합니다.
 /// </summary>
-/// <param name="description">설명</param>
-/// <param name="type">설명</param>
-/// <param name="result">설명</param>
-/// <returns>설명</returns>
+/// <param name="description">매개 변수</param>
+/// <param name="type">형식</param>
+/// <param name="result">매개 변수</param>
+/// <returns>조건을 만족하면 true를 반환합니다.</returns>
         public static bool TryParseValueFromDescription(string description, Type type, out object result)
         {
             result = default;

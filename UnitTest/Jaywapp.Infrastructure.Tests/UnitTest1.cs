@@ -1,13 +1,13 @@
 namespace Jaywapp.Infrastructure.Tests
 {
 /// <summary>
-/// 설명
+/// Tests를(을) 제공합니다.
 /// </summary>
     public class Tests
     {
         [SetUp]
 /// <summary>
-/// 설명
+/// 값을 설정합니다.
 /// </summary>
         public void Setup()
         {
@@ -15,7 +15,7 @@ namespace Jaywapp.Infrastructure.Tests
 
         [Test]
 /// <summary>
-/// 설명
+/// 동작을 수행합니다.
 /// </summary>
         public void Test1()
         {

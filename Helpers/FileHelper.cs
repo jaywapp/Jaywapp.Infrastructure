@@ -7,15 +7,15 @@ using System.Text;
 namespace Jaywapp.Infrastructure.Helpers
 {
 /// <summary>
-/// 설명
+/// 유틸리티 메서드를 제공합니다.
 /// </summary>
     public static class FileHelper
     {
 /// <summary>
-/// 설명
+/// 동작을 수행합니다.
 /// </summary>
-/// <param name="path">설명</param>
-/// <returns>설명</returns>
+/// <param name="path">매개 변수</param>
+/// <returns>결과를 반환합니다.</returns>
         public static IEnumerable<string> ReadLines(this string path)
         {
             using (var reader = new StreamReader(path))
@@ -28,19 +28,19 @@ namespace Jaywapp.Infrastructure.Helpers
         }
 
 /// <summary>
-/// 설명
+/// 동작을 수행합니다.
 /// </summary>
-/// <param name="zipPath">설명</param>
-/// <param name="dirPath">설명</param>
+/// <param name="zipPath">매개 변수</param>
+/// <param name="dirPath">매개 변수</param>
         public static void Decompress(this string zipPath, string dirPath)
         {
             ZipFile.ExtractToDirectory(zipPath, dirPath);
         }
 
 /// <summary>
-/// 설명
+/// 동작을 수행합니다.
 /// </summary>
-/// <param name="path">설명</param>
+/// <param name="path">매개 변수</param>
         public static void ClearDirectory(this string path)
         {
             if (!Directory.Exists(path))
@@ -51,10 +51,10 @@ namespace Jaywapp.Infrastructure.Helpers
         }
 
 /// <summary>
-/// 설명
+/// Files를(을) 가져옵니다.
 /// </summary>
-/// <param name="dirPath">설명</param>
-/// <returns>설명</returns>
+/// <param name="dirPath">매개 변수</param>
+/// <returns>결과를 반환합니다.</returns>
         public static List<string> GetFiles(string dirPath)
         {
             var result = new List<string>();
@@ -76,11 +76,11 @@ namespace Jaywapp.Infrastructure.Helpers
         }
 
 /// <summary>
-/// 설명
+/// Extension인지 여부를 확인합니다.
 /// </summary>
-/// <param name="path">설명</param>
-/// <param name="extension">설명</param>
-/// <returns>설명</returns>
+/// <param name="path">매개 변수</param>
+/// <param name="extension">매개 변수</param>
+/// <returns>조건을 만족하면 true를 반환합니다.</returns>
         public static bool IsExtension(string path, string extension)
         {
             if (!File.Exists(path))

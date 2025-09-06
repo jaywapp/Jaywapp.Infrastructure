@@ -7,7 +7,7 @@ using System.Text;
 namespace Jaywapp.Infrastructure.Helpers
 {
 /// <summary>
-/// 설명
+/// 유틸리티 메서드를 제공합니다.
 /// </summary>
     public static class RandomHelper
     {
