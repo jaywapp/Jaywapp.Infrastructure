@@ -37,11 +37,18 @@ jobs:
         shell: pwsh
         run: |
           Write-Host "Listing nupkg directory..."
-          if (Test-Path nupkg) { Get-ChildItem -Recurse -File nupkg | ForEach-Object { Write-Host $_.FullName } } else { Write-Host "nupkg folder not found" }
+          if (Test-Path nupkg) {
+            Get-ChildItem -Recurse -File nupkg | ForEach-Object { Write-Host $_.FullName }
+          } else {
+            Write-Host "nupkg folder not found"
+          }
 
       - name: Publish to NuGet
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
         shell: pwsh
         run: |
-          dotnet nuget push nupkg/*.nupkg --api-key "$env:NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          $pkg = Get-ChildItem -Recurse -File nupkg -Filter *.nupkg | Select-Object -First 1
+          if (-not $pkg) { Write-Error "No .nupkg found under nupkg/"; exit 1 }
+          Write-Host "Pushing package: $($pkg.FullName)"
+          dotnet nuget push "$($pkg.FullName)" --api-key "$env:NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate
