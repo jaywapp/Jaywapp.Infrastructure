@@ -1,22 +1,55 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <!-- Multi-target: core utilities on netstandard; WPF-enabled on desktop targets -->
+    <TargetFrameworks>netstandard2.0;net48;net6.0-windows7.0</TargetFrameworks>
+
+    <!-- NuGet metadata -->
+    <PackageId>Jaywapp.Infrastructure</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>jaywapp</Authors>
+    <Company>jaywapp</Company>
+    <Description>Common utilities and helpers (including WPF converters) used across Jaywapp projects.</Description>
+    <RepositoryUrl>https://github.com/jaywapp/Jaywapp.Infrastructure</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/jaywapp/Jaywapp.Infrastructure</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <NeutralLanguage>ko</NeutralLanguage>
   </PropertyGroup>
 
+  <!-- Enable WPF for .NET 6+ Windows target -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-windows7.0'">
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <!-- Add WPF references for .NET Framework target -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+
+  <!-- Exclude UnitTest folder from all targets -->
   <ItemGroup>
     <Compile Remove="UnitTest\**" />
     <EmbeddedResource Remove="UnitTest\**" />
     <None Remove="UnitTest\**" />
   </ItemGroup>
 
+  <!-- On netstandard2.0, exclude WPF-specific files -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <Compile Remove="Converters\**" />
+    <Compile Remove="Helpers\ColorHelper.cs" />
+  </ItemGroup>
+
+  <!-- Ensure README is packed into the NuGet package -->
   <ItemGroup>
-    <Reference Include="PresentationCore">
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\PresentationCore.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationFramework">
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\PresentationFramework.dll</HintPath>
-    </Reference>
+    <None Include="README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>
+
