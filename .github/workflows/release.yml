@@ -33,8 +33,15 @@ jobs:
       - name: Pack
         run: dotnet pack Jaywapp.Infrastructure.csproj -c Release -o nupkg /p:Version=${{ steps.get_version.outputs.version }}
 
+      - name: List packages
+        shell: pwsh
+        run: |
+          Write-Host "Listing nupkg directory..."
+          if (Test-Path nupkg) { Get-ChildItem -Recurse -File nupkg | ForEach-Object { Write-Host $_.FullName } } else { Write-Host "nupkg folder not found" }
+
       - name: Publish to NuGet
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-        run: dotnet nuget push "nupkg/*.nupkg" --api-key "$env:NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate
-
+        shell: pwsh
+        run: |
+          dotnet nuget push nupkg/*.nupkg --api-key "$env:NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate -v minimal
