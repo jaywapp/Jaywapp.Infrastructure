@@ -1,26 +1,45 @@
-using System.Collections.Generic;
-using Jaywapp.Infrastructure.Helpers;
-using NUnit.Framework;
+﻿using Jaywapp.Infrastructure.Helpers;
 
-namespace Jaywapp.Infrastructure.Tests
+namespace Jaywapp.Infrastructure.Tests.Helpers
 {
+    [TestFixture]
     public class TestHashSetHelper
     {
-        [TestCase(new int[] { 1 }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 })]
-        [TestCase(new int[] { }, new int[] { 2, 2, 3 }, new int[] { 2, 3 })]
-        public void AddRange_AddsUnique(int[] initial, int[] toAdd, int[] expected)
+        [Test]
+        public void TestAddRange()
         {
-            var hs = new HashSet<int>(initial);
-            hs.AddRange(toAdd);
-            Assert.That(hs.SetEquals(expected), Is.True);
+            // Arrange
+            var hashSet = new HashSet<int> { 1, 2, 3 };
+            var targets = new List<int> { 3, 4, 5 };
+
+            // Act
+            hashSet.AddRange(targets);
+
+            // Assert
+            Assert.That(hashSet.Count, Is.EqualTo(5));
+            Assert.That(hashSet, Does.Contain(1));
+            Assert.That(hashSet, Does.Contain(2));
+            Assert.That(hashSet, Does.Contain(3));
+            Assert.That(hashSet, Does.Contain(4));
+            Assert.That(hashSet, Does.Contain(5));
         }
 
-        [TestCase(new int[] { 1, 2, 3 }, new int[] { 2, 4 }, new int[] { 1, 3 })]
-        public void RemoveRange_RemovesSpecified(int[] initial, int[] toRemove, int[] expected)
+        [Test]
+        public void TestRemoveRange()
         {
-            var hs = new HashSet<int>(initial);
-            hs.RemoveRange(toRemove);
-            Assert.That(hs.SetEquals(expected), Is.True);
+            // Arrange
+            var hashSet = new HashSet<string> { "a", "b", "c", "d" };
+            var targets = new List<string> { "c", "d", "e" };
+
+            // Act
+            hashSet.RemoveRange(targets);
+
+            // Assert
+            Assert.That(hashSet.Count, Is.EqualTo(2));
+            Assert.That(hashSet, Does.Contain("a"));
+            Assert.That(hashSet, Does.Contain("b"));
+            Assert.That(hashSet, Does.Not.Contain("c"));
+            Assert.That(hashSet, Does.Not.Contain("d"));
         }
     }
 }

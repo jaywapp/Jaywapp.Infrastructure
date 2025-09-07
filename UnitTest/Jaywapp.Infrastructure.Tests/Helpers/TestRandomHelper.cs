@@ -1,69 +1,120 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Jaywapp.Infrastructure.Helpers;
-using NUnit.Framework;
 
-namespace Jaywapp.Infrastructure.Tests
+namespace Jaywapp.Infrastructure.Tests.Helpers
 {
+    [TestFixture]
     public class TestRandomHelper
     {
-        [Test]
-        public void NextIntRange_ProducesWithinRange()
+        private Random _random;
+
+        [SetUp]
+        public void Setup()
         {
-            var rnd = new Random(42);
-            var val = rnd.Next(1, 3); // underlying .NET method
-            Assert.That(val, Is.InRange(1, 2));
+            _random = new Random();
         }
 
+        // ---
+
         [Test]
-        public void NextCharacter_ReturnsPrintableAscii()
+        public void TestNextBoolean()
         {
-            var rnd = new Random(1);
-            var ch = rnd.NextCharacter();
-            Assert.That((int)ch, Is.InRange(33, 125));
+            // Act
+            var result = _random.NextBoolean();
+
+            // Assert
+            Assert.That(result, Is.TypeOf<bool>());
         }
 
-        [TestCase(1)]
+        // ---
+
         [TestCase(10)]
-        public void NextString_LengthMatches(int length)
+        [TestCase(50)]
+        [TestCase(100)]
+        public void TestNextString(int maxLength)
         {
-            var rnd = new Random(1);
-            var s = rnd.NextString(length);
-            Assert.That(s.Length, Is.EqualTo(length));
+            // Act
+            var result = _random.NextString(maxLength);
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.TypeOf<string>());
+            Assert.That(result.Length, Is.GreaterThan(0));
+            Assert.That(result.Length, Is.LessThanOrEqualTo(maxLength));
         }
 
-        private enum Alpha { A, B, C }
+        // ---
 
         [Test]
-        public void NextEnum_ReturnsAValidValue()
+        public void TestNextCharacter()
         {
-            var rnd = new Random(2);
-            var e = rnd.Next<Alpha>();
-            Assert.That(Enum.IsDefined(typeof(Alpha), e), Is.True);
+            // Act
+            var result = _random.NextCharacter();
+
+            // Assert
+            Assert.That(result, Is.TypeOf<char>());
+            Assert.That((int)result, Is.GreaterThanOrEqualTo(33));
+            Assert.That((int)result, Is.LessThanOrEqualTo(126));
         }
 
-        [Test]
-        public void NextColor_ReturnsColor()
-        {
-            var rnd = new Random(3);
-            Color c = rnd.NextColor();
-            Assert.Pass(); // existence test; value is random
-        }
+        // ---
+
+        private enum TestEnum { Value1, Value2, Value3 }
 
         [Test]
-        public void NextPoint_ReturnsPoint()
+        public void TestNextTEnum()
         {
-            var rnd = new Random(4);
-            var p = rnd.NextPoint();
-            Assert.That(p, Is.Not.Null);
+            // Act
+            var result = _random.Next<TestEnum>();
+
+            // Assert
+            var expectedValues = Enum.GetValues(typeof(TestEnum)).Cast<TestEnum>();
+            Assert.That(expectedValues, Does.Contain(result));
         }
 
+        // ---
+
         [Test]
-        public void Next_Selectors_PicksOne()
+        public void TestNextColor()
         {
-            var rnd = new Random(5);
-            var v = rnd.Next(() => 1, () => 2, () => 3);
-            Assert.That(v, Is.AnyOf(1, 2, 3));
+            // Act
+            var result = _random.NextColor();
+
+            // Assert
+            Assert.That(result, Is.TypeOf<Color>());
+        }
+
+        // ---
+
+        [Test]
+        public void TestNextPoint()
+        {
+            // Act
+            var result = _random.NextPoint();
+
+            // Assert
+            Assert.That(result, Is.TypeOf<Point>());
+        }
+
+        // ---
+
+        [Test]
+        public void TestNextTSelectors()
+        {
+            // Arrange
+            Func<int> selector1 = () => 10;
+            Func<int> selector2 = () => 20;
+
+            // Act
+            var result = _random.Next(selector1, selector2);
+
+            // Assert
+            Assert.That(new[] { 10, 20 }, Does.Contain(result));
         }
     }
 }

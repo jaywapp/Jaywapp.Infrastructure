@@ -1,41 +1,116 @@
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using Jaywapp.Infrastructure.Helpers;
-using NUnit.Framework;
 
-namespace Jaywapp.Infrastructure.Tests
+namespace Jaywapp.Infrastructure.Tests.Helpers
 {
+    [TestFixture]
     public class TestEnumerableHelper
     {
-        [TestCase(null, ExpectedResult = true)]
-        [TestCase(new int[] { }, ExpectedResult = true)]
-        [TestCase(new int[] { 1 }, ExpectedResult = false)]
-        public bool IsNullOrEmpty_Cases(int[] input)
+        [Test]
+        public void TestIsNullOrEmpty_NullCollection_ReturnsTrue()
         {
-            IEnumerable<int> col = input;
-            return EnumerableHelper.IsNullOrEmpty(col);
+            // Act
+            var result = EnumerableHelper.IsNullOrEmpty<int>(null);
+
+            // Assert
+            Assert.That(result, Is.True);
         }
 
-        [TestCase(new int[] { 10, 20 }, 2, 10, 20)]
-        [TestCase(new int[] { }, 0, 0, 0)]
-        public void ToObservableCollection_CreatesCollectionWithItems(int[] src, int expectedCount, int first, int last)
+        [Test]
+        public void TestIsNullOrEmpty_EmptyCollection_ReturnsTrue()
         {
-            var oc = src.ToObservableCollection();
-            Assert.That(oc.Count, Is.EqualTo(expectedCount));
-            if (expectedCount > 0)
-            {
-                Assert.That(oc[0], Is.EqualTo(first));
-                Assert.That(oc[^1], Is.EqualTo(last));
-            }
+            // Act
+            var result = EnumerableHelper.IsNullOrEmpty(Enumerable.Empty<string>());
+
+            // Assert
+            Assert.That(result, Is.True);
         }
 
-        [TestCase(3, false, 2)]
-        [TestCase(3, true, 3)]
-        public void ChainPairing_CountMatches(int length, bool circular, int expectedCount)
+        [Test]
+        public void TestIsNullOrEmpty_PopulatedCollection_ReturnsFalse()
         {
-            var src = Enumerable.Range(1, length).ToArray();
-            var pairs = src.ChainPairing(circular).ToList();
-            Assert.That(pairs.Count, Is.EqualTo(expectedCount));
+            // Act
+            var result = EnumerableHelper.IsNullOrEmpty(new List<int> { 1, 2, 3 });
+
+            // Assert
+            Assert.That(result, Is.False);
+        }
+
+        // ---
+
+        [Test]
+        public void TestToObservableCollection_ConvertsToList()
+        {
+            // Arrange
+            var list = new List<string> { "a", "b", "c" };
+
+            // Act
+            var collection = list.ToObservableCollection();
+
+            // Assert
+            Assert.That(collection, Is.TypeOf<ObservableCollection<string>>());
+            Assert.That(collection.Count, Is.EqualTo(3));
+            Assert.That(collection, Is.EqualTo(list));
+        }
+
+        // ---
+
+        [Test]
+        public void TestChainPairing_NonCircular_ReturnsCorrectPairs()
+        {
+            // Arrange
+            var items = new List<int> { 1, 2, 3, 4 };
+
+            // Act
+            var pairs = items.ChainPairing().ToList();
+
+            // Assert
+            Assert.That(pairs.Count, Is.EqualTo(3));
+            Assert.That(pairs[0], Is.EqualTo((1, 2)));
+            Assert.That(pairs[1], Is.EqualTo((2, 3)));
+            Assert.That(pairs[2], Is.EqualTo((3, 4)));
+        }
+
+        [Test]
+        public void TestChainPairing_Circular_ReturnsCorrectPairs()
+        {
+            // Arrange
+            var items = new List<int> { 1, 2, 3 };
+
+            // Act
+            var pairs = items.ChainPairing(isCircular: true).ToList();
+
+            // Assert
+            Assert.That(pairs.Count, Is.EqualTo(3));
+            Assert.That(pairs[0], Is.EqualTo((1, 2)));
+            Assert.That(pairs[1], Is.EqualTo((2, 3)));
+            Assert.That(pairs[2], Is.EqualTo((3, 1)));
+        }
+
+        [Test]
+        public void TestChainPairing_SingleItem_ReturnsEmpty()
+        {
+            // Arrange
+            var items = new List<int> { 1 };
+
+            // Act
+            var pairs = items.ChainPairing().ToList();
+
+            // Assert
+            Assert.That(pairs, Is.Empty);
+        }
+
+        [Test]
+        public void TestChainPairing_EmptyList_ReturnsEmpty()
+        {
+            // Arrange
+            var items = new List<int>();
+
+            // Act
+            var pairs = items.ChainPairing().ToList();
+
+            // Assert
+            Assert.That(pairs, Is.Empty);
         }
     }
 }

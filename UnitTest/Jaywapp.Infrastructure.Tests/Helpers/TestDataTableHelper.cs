@@ -1,29 +1,59 @@
-using System.Data;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Jaywapp.Infrastructure.Helpers;
-using NUnit.Framework;
+using System.Windows.Media;
+using System.Data;
 
-namespace Jaywapp.Infrastructure.Tests
+namespace Jaywapp.Infrastructure.Tests.Helpers
 {
+    [TestFixture]
     public class TestDataTableHelper
     {
-        [TestCase(new string[] { "A", "B" }, 2)]
-        public void DataColumnCollection_ToList_ReturnsAllColumns(string[] names, int expected)
+        private DataTable _testTable;
+
+        [SetUp]
+        public void Setup()
         {
-            var dt = new DataTable();
-            foreach (var n in names) dt.Columns.Add(n);
-            var list = dt.Columns.ToList();
-            Assert.That(list.Count, Is.EqualTo(expected));
+            _testTable = new DataTable();
+            _testTable.Columns.Add("Id", typeof(int));
+            _testTable.Columns.Add("Name", typeof(string));
+            _testTable.Rows.Add(1, "Alice");
+            _testTable.Rows.Add(2, "Bob");
         }
 
-        [TestCase(new int[] { 1, 2 }, 2)]
-        public void DataRowCollection_ToList_ReturnsAllRows(int[] values, int expected)
+
+        [TearDown]
+        public void TearDown()
         {
-            var dt = new DataTable();
-            dt.Columns.Add("A", typeof(int));
-            foreach (var v in values) dt.Rows.Add(v);
-            var rows = dt.Rows.ToList();
-            Assert.That(rows.Count, Is.EqualTo(expected));
+            _testTable?.Dispose();
+        }
+
+
+        [Test]
+        public void TestToDataColumnList_ReturnsCorrectColumns()
+        {
+            // Act
+            var columns = _testTable.Columns.ToList();
+
+            // Assert
+            Assert.That(columns.Count, Is.EqualTo(2));
+            Assert.That(columns[0].ColumnName, Is.EqualTo("Id"));
+            Assert.That(columns[1].ColumnName, Is.EqualTo("Name"));
+        }
+
+        [Test]
+        public void TestToDataRowList_ReturnsCorrectRows()
+        {
+            // Act
+            var rows = _testTable.Rows.ToList();
+
+            // Assert
+            Assert.That(rows.Count, Is.EqualTo(2));
+            Assert.That(rows[0]["Id"], Is.EqualTo(1));
+            Assert.That(rows[1]["Name"], Is.EqualTo("Bob"));
         }
     }
 }
