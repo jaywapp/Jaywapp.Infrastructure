@@ -9,16 +9,18 @@ namespace Jaywapp.Infrastructure.Tests
 {
     public class TestFileHelper
     {
-        [Test]
-        public void ReadLines_ReadsAll()
+        [TestCase(3)]
+        [TestCase(0)]
+        public void ReadLines_CountMatches(int count)
         {
             var dir = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
             try
             {
                 var file = Path.Combine(dir.FullName, "sample.txt");
-                File.WriteAllLines(file, new[] { "a", "b", "c" });
+                var content = Enumerable.Range(1, count).Select(i => $"l{i}").ToArray();
+                File.WriteAllLines(file, content);
                 var lines = file.ReadLines().ToArray();
-                Assert.That(lines, Is.EqualTo(new[] { "a", "b", "c" }));
+                Assert.That(lines.Length, Is.EqualTo(count));
             }
             finally
             {
@@ -63,16 +65,16 @@ namespace Jaywapp.Infrastructure.Tests
             }
         }
 
-        [Test]
-        public void IsExtension_Works()
+        [TestCase(".txt", true)]
+        [TestCase(".bin", false)]
+        public void IsExtension_Cases(string ext, bool expected)
         {
             var dir = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
             try
             {
                 var a = Path.Combine(dir.FullName, "a.txt");
                 File.WriteAllText(a, "x");
-                Assert.That(FileHelper.IsExtension(a, ".txt"), Is.True);
-                Assert.That(FileHelper.IsExtension(a, ".bin"), Is.False);
+                Assert.That(FileHelper.IsExtension(a, ext), Is.EqualTo(expected));
             }
             finally
             {

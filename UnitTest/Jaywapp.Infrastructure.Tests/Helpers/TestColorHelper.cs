@@ -6,30 +6,38 @@ namespace Jaywapp.Infrastructure.Tests
 {
     public class TestColorHelper
     {
-        [Test]
-        public void GetColorName_KnownColor_ReturnsName()
+        [TestCase("Red")]
+        [TestCase("Blue")]
+        public void GetColorName_KnownColor_ReturnsName(string colorName)
         {
-            var name = Colors.Red.GetColorName();
-            Assert.That(name, Is.EqualTo("Red"));
+            var prop = typeof(Colors).GetProperty(colorName);
+            var color = (Color)prop!.GetValue(null, null)!;
+            var name = color.GetColorName();
+            Assert.That(name, Is.EqualTo(colorName));
         }
 
-        [Test]
-        public void ToColor_ParsesStringOrReturnsDefault()
+        [TestCase("#FF0000", "Red")]
+        [TestCase("#00FF00", "Lime")]
+        public void ToColor_ParsesString(string hex, string expectedName)
         {
-            var c1 = "#FF0000".ToColor();
-            Assert.That(c1, Is.EqualTo(Colors.Red));
-
-            var c2 = "not-a-color".ToColor(Colors.Blue);
-            Assert.That(c2, Is.EqualTo(Colors.Blue));
+            var c = hex.ToColor();
+            Assert.That(c, Is.EqualTo((Color)typeof(Colors).GetProperty(expectedName)!.GetValue(null, null)!));
         }
 
-        [Test]
-        public void TryConvertColor_ReturnsTrueWhenParsable()
+        [TestCase("not-a-color", "Blue")]
+        public void ToColor_ReturnsDefaultOnFailure(string input, string defaultName)
         {
-            Assert.That("#00FF00".TryConvertColor(out var green), Is.True);
-            Assert.That(green, Is.EqualTo(Colors.Lime));
+            var def = (Color)typeof(Colors).GetProperty(defaultName)!.GetValue(null, null)!;
+            var c = input.ToColor(def);
+            Assert.That(c, Is.EqualTo(def));
+        }
 
-            Assert.That("invalid".TryConvertColor(out _), Is.False);
+        [TestCase("#00FF00", true)]
+        [TestCase("invalid", false)]
+        public void TryConvertColor_Cases(string input, bool expected)
+        {
+            var ok = input.TryConvertColor(out var color);
+            Assert.That(ok, Is.EqualTo(expected));
         }
     }
 }

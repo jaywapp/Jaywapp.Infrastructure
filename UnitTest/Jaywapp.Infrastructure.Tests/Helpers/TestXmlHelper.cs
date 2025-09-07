@@ -6,13 +6,13 @@ namespace Jaywapp.Infrastructure.Tests
 {
     public class TestXmlHelper
     {
-        [Test]
-        public void GetAttributeValue_ReturnsValue()
+        [TestCase("name", "john", "john")]
+        [TestCase("age", null, "0")]
+        public void GetAttributeValue_Cases(string key, string value, string expected)
         {
             var el = new XElement("root");
-            el.SetAttributeValue("name", "john");
-            Assert.That(el.GetAttributeValue("name"), Is.EqualTo("john"));
-            Assert.That(el.GetAttributeValue("age", "0"), Is.EqualTo("0"));
+            if (value != null) el.SetAttributeValue(key, value);
+            Assert.That(el.GetAttributeValue(key, "0"), Is.EqualTo(expected));
         }
 
         [Test]

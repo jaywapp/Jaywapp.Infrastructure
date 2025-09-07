@@ -6,13 +6,13 @@ namespace Jaywapp.Infrastructure.Tests
 {
     public class TestCollectionHelper
     {
-        [Test]
-        public void AddRange_AddsAllItemsInOrder()
+        [TestCase(new int[] { 1 }, new int[] { 2, 3, 4 }, new int[] { 1, 2, 3, 4 })]
+        [TestCase(new int[] { }, new int[] { 5 }, new int[] { 5 })]
+        public void AddRange_AddsAllItemsInOrder(int[] initial, int[] items, int[] expected)
         {
-            var list = new List<int> { 1 };
-            list.AddRange(new[] { 2, 3, 4 });
-
-            Assert.That(list, Is.EqualTo(new[] { 1, 2, 3, 4 }));
+            var list = new List<int>(initial);
+            list.AddRange(items);
+            Assert.That(list, Is.EqualTo(expected));
         }
     }
 }

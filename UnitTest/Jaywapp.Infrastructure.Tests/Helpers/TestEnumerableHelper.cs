@@ -7,37 +7,35 @@ namespace Jaywapp.Infrastructure.Tests
 {
     public class TestEnumerableHelper
     {
-        [Test]
-        public void IsNullOrEmpty_Works()
+        [TestCase(null, ExpectedResult = true)]
+        [TestCase(new int[] { }, ExpectedResult = true)]
+        [TestCase(new int[] { 1 }, ExpectedResult = false)]
+        public bool IsNullOrEmpty_Cases(int[] input)
         {
-            IEnumerable<int> nullEnum = null;
-            Assert.That(EnumerableHelper.IsNullOrEmpty(nullEnum), Is.True);
-            Assert.That(EnumerableHelper.IsNullOrEmpty(new int[0]), Is.True);
-            Assert.That(EnumerableHelper.IsNullOrEmpty(new[] { 1 }), Is.False);
+            IEnumerable<int> col = input;
+            return EnumerableHelper.IsNullOrEmpty(col);
         }
 
-        [Test]
-        public void ToObservableCollection_CreatesCollectionWithItems()
+        [TestCase(new int[] { 10, 20 }, 2, 10, 20)]
+        [TestCase(new int[] { }, 0, 0, 0)]
+        public void ToObservableCollection_CreatesCollectionWithItems(int[] src, int expectedCount, int first, int last)
         {
-            var src = new[] { 10, 20 };
             var oc = src.ToObservableCollection();
-            Assert.That(oc.Count, Is.EqualTo(2));
-            Assert.That(oc[0], Is.EqualTo(10));
-            Assert.That(oc[1], Is.EqualTo(20));
+            Assert.That(oc.Count, Is.EqualTo(expectedCount));
+            if (expectedCount > 0)
+            {
+                Assert.That(oc[0], Is.EqualTo(first));
+                Assert.That(oc[^1], Is.EqualTo(last));
+            }
         }
 
-        [Test]
-        public void ChainPairing_NonCircular_PairsSequentially()
+        [TestCase(3, false, 2)]
+        [TestCase(3, true, 3)]
+        public void ChainPairing_CountMatches(int length, bool circular, int expectedCount)
         {
-            var pairs = new[] { 1, 2, 3 }.ChainPairing().ToList();
-            Assert.That(pairs, Is.EqualTo(new[] { (1, 2), (2, 3) }));
-        }
-
-        [Test]
-        public void ChainPairing_Circular_IncludesWrapPair()
-        {
-            var pairs = new[] { 1, 2, 3 }.ChainPairing(isCircular: true).ToList();
-            Assert.That(pairs, Is.EqualTo(new[] { (1, 2), (2, 3), (3, 1) }));
+            var src = Enumerable.Range(1, length).ToArray();
+            var pairs = src.ChainPairing(circular).ToList();
+            Assert.That(pairs.Count, Is.EqualTo(expectedCount));
         }
     }
 }

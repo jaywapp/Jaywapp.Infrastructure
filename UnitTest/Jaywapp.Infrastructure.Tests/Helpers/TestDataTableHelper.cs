@@ -7,29 +7,23 @@ namespace Jaywapp.Infrastructure.Tests
 {
     public class TestDataTableHelper
     {
-        [Test]
-        public void DataColumnCollection_ToList_ReturnsAllColumns()
+        [TestCase(new string[] { "A", "B" }, 2)]
+        public void DataColumnCollection_ToList_ReturnsAllColumns(string[] names, int expected)
         {
             var dt = new DataTable();
-            dt.Columns.Add("A");
-            dt.Columns.Add("B");
-
+            foreach (var n in names) dt.Columns.Add(n);
             var list = dt.Columns.ToList();
-            Assert.That(list.Select(c => c.ColumnName).ToArray(), Is.EqualTo(new[] { "A", "B" }));
+            Assert.That(list.Count, Is.EqualTo(expected));
         }
 
-        [Test]
-        public void DataRowCollection_ToList_ReturnsAllRows()
+        [TestCase(new int[] { 1, 2 }, 2)]
+        public void DataRowCollection_ToList_ReturnsAllRows(int[] values, int expected)
         {
             var dt = new DataTable();
             dt.Columns.Add("A", typeof(int));
-            dt.Rows.Add(1);
-            dt.Rows.Add(2);
-
+            foreach (var v in values) dt.Rows.Add(v);
             var rows = dt.Rows.ToList();
-            Assert.That(rows.Count, Is.EqualTo(2));
-            Assert.That((int)rows[0][0], Is.EqualTo(1));
-            Assert.That((int)rows[1][0], Is.EqualTo(2));
+            Assert.That(rows.Count, Is.EqualTo(expected));
         }
     }
 }

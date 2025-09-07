@@ -6,20 +6,21 @@ namespace Jaywapp.Infrastructure.Tests
 {
     public class TestHashSetHelper
     {
-        [Test]
-        public void AddRange_AddsUnique()
+        [TestCase(new int[] { 1 }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 })]
+        [TestCase(new int[] { }, new int[] { 2, 2, 3 }, new int[] { 2, 3 })]
+        public void AddRange_AddsUnique(int[] initial, int[] toAdd, int[] expected)
         {
-            var hs = new HashSet<int> { 1 };
-            hs.AddRange(new[] { 1, 2, 3 });
-            Assert.That(hs.SetEquals(new[] { 1, 2, 3 }), Is.True);
+            var hs = new HashSet<int>(initial);
+            hs.AddRange(toAdd);
+            Assert.That(hs.SetEquals(expected), Is.True);
         }
 
-        [Test]
-        public void RemoveRange_RemovesSpecified()
+        [TestCase(new int[] { 1, 2, 3 }, new int[] { 2, 4 }, new int[] { 1, 3 })]
+        public void RemoveRange_RemovesSpecified(int[] initial, int[] toRemove, int[] expected)
         {
-            var hs = new HashSet<int> { 1, 2, 3 };
-            hs.RemoveRange(new[] { 2, 4 });
-            Assert.That(hs.SetEquals(new[] { 1, 3 }), Is.True);
+            var hs = new HashSet<int>(initial);
+            hs.RemoveRange(toRemove);
+            Assert.That(hs.SetEquals(expected), Is.True);
         }
     }
 }

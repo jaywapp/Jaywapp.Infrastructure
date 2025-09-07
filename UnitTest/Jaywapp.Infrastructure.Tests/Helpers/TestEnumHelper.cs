@@ -22,26 +22,28 @@ namespace Jaywapp.Infrastructure.Tests
             Assert.That(vals, Is.EqualTo(new[] { Sample.A, Sample.B, Sample.C }));
         }
 
-        [Test]
-        public void TryGetDescription_FindsAttribute()
+        [TestCase(Sample.A, true, "Alpha")]
+        [TestCase(Sample.C, false, null)]
+        public void TryGetDescription_Cases(Sample value, bool expected, string expectedDesc)
         {
-            Assert.That(EnumHelper.TryGetDescription(Sample.A, out var descA), Is.True);
-            Assert.That(descA, Is.EqualTo("Alpha"));
-            Assert.That(EnumHelper.TryGetDescription(Sample.C, out _), Is.False);
+            var ok = EnumHelper.TryGetDescription(value, out var desc);
+            Assert.That(ok, Is.EqualTo(expected));
+            if (expected) Assert.That(desc, Is.EqualTo(expectedDesc));
+            else Assert.That(desc, Is.Null);
         }
 
-        [Test]
-        public void GetDescriptionOrToString_Works()
+        [TestCase(Sample.B, "Beta")]
+        [TestCase(Sample.C, "C")]
+        public void GetDescriptionOrToString_Cases(Sample value, string expected)
         {
-            Assert.That(Sample.B.GetDescriptionOrToString(), Is.EqualTo("Beta"));
-            Assert.That(Sample.C.GetDescriptionOrToString(), Is.EqualTo("C"));
+            Assert.That(value.GetDescriptionOrToString(), Is.EqualTo(expected));
         }
 
-        [Test]
-        public void GetValueFromDescription_Parses()
+        [TestCase("Alpha", Sample.A)]
+        [TestCase("C", Sample.C)]
+        public void GetValueFromDescription_Parses(string input, Sample expected)
         {
-            Assert.That("Alpha".GetValueFromDescription<Sample>(), Is.EqualTo(Sample.A));
-            Assert.That("C".GetValueFromDescription<Sample>(), Is.EqualTo(Sample.C));
+            Assert.That(input.GetValueFromDescription<Sample>(), Is.EqualTo(expected));
         }
 
         [Test]

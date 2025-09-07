@@ -23,12 +23,13 @@ namespace Jaywapp.Infrastructure.Tests
             Assert.That((int)ch, Is.InRange(33, 125));
         }
 
-        [Test]
-        public void NextString_LengthMatches()
+        [TestCase(1)]
+        [TestCase(10)]
+        public void NextString_LengthMatches(int length)
         {
             var rnd = new Random(1);
-            var s = rnd.NextString(10);
-            Assert.That(s.Length, Is.EqualTo(10));
+            var s = rnd.NextString(length);
+            Assert.That(s.Length, Is.EqualTo(length));
         }
 
         private enum Alpha { A, B, C }
