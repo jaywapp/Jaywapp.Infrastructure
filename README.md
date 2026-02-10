@@ -1,17 +1,18 @@
 # Jaywapp.Infrastructure
 
-Common utilities, helpers, and domain-independent reusable components used across Jaywapp projects.
+Jaywapp 프로젝트에서 공통으로 사용되는 유틸리티, 헬퍼, 도메인 독립적 재사용 컴포넌트를 제공하는 라이브러리입니다.
 
-## Projects
+## 프로젝트 구성
 
-| Project | Target | Description |
-|---------|--------|-------------|
-| **Jaywapp.Infrastructure** | netstandard2.0 | Filtering system, helpers (Collection, DataTable, Enum, Enumerable, File, HashSet, Random, XML) |
-| **Jaywapp.Common** | netstandard2.0 | Domain-independent extensions, guards, and models |
+| 프로젝트 | 타겟 | 설명 |
+|---------|------|------|
+| **Jaywapp.Infrastructure** | netstandard2.0 | 필터링 시스템, 헬퍼 (Collection, DataTable, Enum, Enumerable, File, HashSet, Random, XML) |
+| **Jaywapp.Common** | netstandard2.0 | 도메인 독립 확장 메서드, 가드, 모델 |
 
 ## Jaywapp.Infrastructure
 
-### Helpers
+### 헬퍼
+
 - **CollectionHelper** - `ICollection<T>.AddRange()`
 - **DataTableHelper** - `DataColumnCollection.ToList()`, `DataRowCollection.ToList()`
 - **EnumHelper** - `GetValues<T>()`, `TryGetDescription()`, `GetValueFromDescription<T>()`
@@ -21,54 +22,58 @@ Common utilities, helpers, and domain-independent reusable components used acros
 - **RandomHelper** - `NextBoolean()`, `NextString()`, `NextCharacter()`, `Next<TEnum>()`, `NextColor()`
 - **XmlHelper** - `GetAttributeValue()`, `TryGetAttributeValue()`, `GetAttributeValueOrEmpty()`
 
-### Filtering System
-- `IFilter` interface with `AND`/`OR` logical operators
-- `Filter` - Single property filter with operators (Equal, NotEqual, LessThan, Contains, Regex, etc.)
-- `FilterGroup` - Composite filter pattern for nested filter logic
+### 필터링 시스템
+
+- `IFilter` 인터페이스 (`AND`/`OR` 논리 연산자 지원)
+- `Filter` - 단일 프로퍼티 필터 (Equal, NotEqual, LessThan, Contains, Regex 등)
+- `FilterGroup` - 중첩 필터 로직을 위한 Composite 패턴
 
 ## Jaywapp.Common
 
-### Extensions
-| Category | Methods |
-|----------|---------|
+### 확장 메서드
+
+| 분류 | 메서드 |
+|------|--------|
 | **StringExtensions** | `HasValue()`, `SafeTruncate()`, `ToSha256()`, `NormalizeLineEndings()` |
 | **CollectionExtensions** | `IsEmpty()`, `None()`, `SafeForEach()`, `Batch()`, `DistinctBy()` |
 | **TaskExtensions** | `SafeFireAndForget()`, `WithTimeout()`, `WithRetry()` |
 | **DateTimeExtensions** | `StartOfDay()`, `EndOfDay()`, `IsInRange()`, `ToUtcSafe()`, `ToLocalSafe()` |
 | **EnumExtensions** | `GetDescription()`, `SafeParse()`, `TryParseEnum()`, `GetValues()` |
 
-### Guards
+### 가드
+
 - `Guard.NotNull()`, `NotNullOrEmpty()`, `NotNullOrWhiteSpace()`, `InRange()`, `NotEmpty()`, `Requires()`
 
-### Models
-| Model | Description |
-|-------|-------------|
-| **Result / Result\<T\>** | Success/Failure pattern without exceptions |
-| **Error** | Error with Code, Message, Exception, Metadata |
-| **PageRequest / PageResult\<T\>** | Pagination request and response |
-| **SortDefinition** | Sort field and direction |
-| **Range\<T\>** | Generic comparable range with Contains/Overlaps |
-| **DatePeriod** | Date range with inclusive/exclusive boundaries |
-| **TreeNode\<T\>** | Generic tree with DFS/BFS traversal |
-| **ChangeSet\<T\>** | Added/Updated/Removed change tracking |
-| **Trackable\<T\>** | Original/Current value tracking with Accept/Reject |
+### 모델
 
-## Install
+| 모델 | 설명 |
+|------|------|
+| **Result / Result\<T\>** | 예외 없이 성공/실패를 표현하는 패턴 |
+| **Error** | 코드, 메시지, 예외, 메타데이터를 포함하는 오류 모델 |
+| **PageRequest / PageResult\<T\>** | 페이지네이션 요청 및 응답 |
+| **SortDefinition** | 정렬 필드 및 방향 |
+| **Range\<T\>** | 범위 포함/겹침 검사를 지원하는 범용 범위 모델 |
+| **DatePeriod** | 포함/배제 경계를 지원하는 날짜 범위 |
+| **TreeNode\<T\>** | DFS/BFS 탐색을 지원하는 범용 트리 |
+| **ChangeSet\<T\>** | 추가/수정/삭제 변경 추적 |
+| **Trackable\<T\>** | 원본/현재 값 추적 (수락/거부 지원) |
+
+## 설치
 
 ```
 PM> Install-Package Jaywapp.Infrastructure
 ```
 
-## Build & Test
+## 빌드 및 테스트
 
 ```bash
 dotnet build Jaywapp.Infrastructure.sln
 dotnet test Jaywapp.Infrastructure.sln
 ```
 
-**Test Summary**: 168 tests (Infrastructure: 50, Common: 118) - All passing
+**테스트 요약**: 168개 테스트 (Infrastructure: 50개, Common: 118개) - 전체 통과
 
-## Solution Structure
+## 솔루션 구조
 
 ```
 Jaywapp.Infrastructure.sln
@@ -81,12 +86,12 @@ Jaywapp.Infrastructure.sln
     └── refactoring-design.md
 ```
 
-## Notes
+## 참고 사항
 
-- WPF-specific types (ColorHelper, Converters) are excluded from netstandard2.0
-- XML documentation is included in the package
-- Jaywapp.Common has zero external dependencies
+- WPF 전용 타입 (ColorHelper, Converters)은 netstandard2.0에서 제외
+- XML 문서 주석이 패키지에 포함됨
+- Jaywapp.Common은 외부 의존성 없음
 
-## License
+## 라이선스
 
 [MIT](LICENSE)

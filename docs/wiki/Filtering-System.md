@@ -1,4 +1,4 @@
-# Filtering System
+# 필터링 시스템
 
 Jaywapp.Infrastructure에 내장된 동적 필터링 시스템입니다.
 
@@ -8,7 +8,7 @@ Jaywapp.Infrastructure에 내장된 동적 필터링 시스템입니다.
 
 ## 구성 요소
 
-### Enums
+### 열거형
 
 ```csharp
 // 논리 연산자

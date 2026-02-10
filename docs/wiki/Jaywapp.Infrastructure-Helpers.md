@@ -1,4 +1,4 @@
-# Jaywapp.Infrastructure Helpers
+# Infrastructure 헬퍼
 
 기존 프로젝트에서 제공하는 유틸리티 헬퍼 클래스 가이드입니다.
 
@@ -118,9 +118,9 @@ var random = new Random();
 
 bool flag = random.NextBoolean();
 string str = random.NextString(maxLength: 50);
-char ch = random.NextCharacter();          // ASCII 33~126
-MyEnum val = random.Next<MyEnum>();         // 랜덤 Enum 값
-Color color = random.NextColor();           // 랜덤 ARGB 색상
+char ch = random.NextCharacter();          // ASCII 33~126 범위 문자
+MyEnum val = random.Next<MyEnum>();         // 무작위 Enum 값
+Color color = random.NextColor();           // 무작위 ARGB 색상
 Point point = random.NextPoint();
 
 // 랜덤 selector 실행
@@ -136,9 +136,9 @@ using Jaywapp.Infrastructure.Helpers;
 
 XElement element = ...;
 
-string value = element.GetAttributeValue("name");                     // null if missing
-string value = element.GetAttributeValue("name", "default");         // "default" if missing
-string value = element.GetAttributeValueOrEmpty("name");              // "" if missing
+string value = element.GetAttributeValue("name");                     // 없으면 null
+string value = element.GetAttributeValue("name", "default");         // 없으면 "default"
+string value = element.GetAttributeValueOrEmpty("name");              // 없으면 ""
 
 if (element.TryGetAttributeValue("name", out string result))
     Console.WriteLine(result);

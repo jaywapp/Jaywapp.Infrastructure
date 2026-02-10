@@ -2,7 +2,7 @@
 
 도메인에 독립적인 재사용 가능한 컴포넌트를 제공하는 모듈입니다.
 
-## Extensions
+## 확장 메서드
 
 ### StringExtensions
 
@@ -83,7 +83,7 @@ EnumExtensions.SafeParse<MyEnum>("Value");  // 안전 파싱 (실패 시 default
 EnumExtensions.GetValues<MyEnum>();         // 모든 값 열거
 ```
 
-## Guards
+## 가드
 
 ```csharp
 using Jaywapp.Common.Guards;
@@ -96,14 +96,14 @@ Guard.NotEmpty(items, nameof(items));
 Guard.Requires(count > 0, "Count must be positive");
 ```
 
-모든 Guard 메서드는 값을 반환하므로 Fluent 패턴으로 사용 가능:
+모든 가드 메서드는 값을 반환하므로 Fluent 패턴으로 사용 가능:
 ```csharp
 _name = Guard.NotNullOrEmpty(name, nameof(name));
 ```
 
-## Models
+## 모델
 
-### Result Pattern
+### Result 패턴
 
 ```csharp
 using Jaywapp.Common.Models;
@@ -113,8 +113,8 @@ var success = Result.Success();
 var typed = Result.Success(42);
 
 // 실패
-var failure = Result.Failure("ERR01", "Something went wrong");
-var typedFailure = Result.Failure<int>(new Error("ERR02", "Not found"));
+var failure = Result.Failure("ERR01", "오류가 발생했습니다");
+var typedFailure = Result.Failure<int>(new Error("ERR02", "찾을 수 없습니다"));
 
 // 사용
 if (result.IsSuccess)
@@ -123,7 +123,7 @@ else
     Console.WriteLine(result.Error.Message);
 ```
 
-### Paging
+### 페이지네이션
 
 ```csharp
 var request = new PageRequest(page: 1, pageSize: 20,
@@ -134,7 +134,7 @@ var result = new PageResult<User>(users, totalCount: 100, page: 1, pageSize: 20)
 // result.HasNextPage == true
 ```
 
-### Range & DatePeriod
+### 범위 및 날짜 기간
 
 ```csharp
 var range = new Range<int>(1, 100);
@@ -145,7 +145,7 @@ var period = new DatePeriod(start, end, isStartInclusive: true, isEndInclusive: 
 period.Contains(date); // 경계 포함/배제 고려
 ```
 
-### TreeNode
+### 트리 노드
 
 ```csharp
 var root = new TreeNode<string>("Root");
@@ -162,7 +162,7 @@ foreach (var node in root.Traverse(TraversalOrder.BreadthFirst))
     Console.WriteLine(node.Value);
 ```
 
-### Change Tracking
+### 변경 추적
 
 ```csharp
 // ChangeSet
