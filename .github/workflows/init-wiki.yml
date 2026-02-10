@@ -1,0 +1,46 @@
+name: Initialize Wiki
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  init-wiki:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v4
+
+      - name: Setup wiki repo
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Clone or init wiki repo
+          WIKI_URL="https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.wiki.git"
+
+          mkdir wiki-tmp
+          cd wiki-tmp
+          git init
+          git remote add origin "$WIKI_URL"
+
+          # Copy wiki pages
+          cp ../docs/wiki/*.md .
+
+          git add -A
+          git commit -m "Add wiki pages: Architecture, Common, Helpers, Filtering, Refactoring Log"
+          git branch -M master
+          git push -f origin master
+
+      - name: Cleanup workflow
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # This workflow is one-time use; it can be manually deleted after
+          echo "Wiki initialized successfully!"
+          echo "You can delete this workflow file after confirmation."
