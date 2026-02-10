@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 using Jaywapp.Infrastructure.Helpers;
-using System.Windows.Media;
-using System.Data;
 
 namespace Jaywapp.Infrastructure.Tests.Helpers
 {

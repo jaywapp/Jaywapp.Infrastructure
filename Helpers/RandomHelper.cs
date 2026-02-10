@@ -13,7 +13,7 @@ namespace Jaywapp.Infrastructure.Helpers
         /// </summary>
         /// <param name="random"></param>
         /// <returns></returns>
-        public static bool NextBoolean(this Random random) => random.Next(0, 1) == 1;
+        public static bool NextBoolean(this Random random) => random.Next(0, 2) == 1;
 
         /// <summary>
         /// 무작위로 문자열을 반환합니다.

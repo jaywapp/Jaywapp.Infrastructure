@@ -33,11 +33,15 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
 
-  <!-- Exclude UnitTest folder from all targets -->
+  <!-- Exclude UnitTest, Common module, and docs folders from all targets -->
   <ItemGroup>
     <Compile Remove="UnitTest\**" />
+    <Compile Remove="Jaywapp.Common\**" />
+    <Compile Remove="docs\**" />
     <EmbeddedResource Remove="UnitTest\**" />
+    <EmbeddedResource Remove="Jaywapp.Common\**" />
     <None Remove="UnitTest\**" />
+    <None Remove="Jaywapp.Common\**" />
   </ItemGroup>
 
   <!-- On netstandard2.0, exclude WPF-specific files -->

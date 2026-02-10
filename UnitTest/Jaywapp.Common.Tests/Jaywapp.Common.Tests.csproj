@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../Jaywapp.Infrastructure.csproj" />
+    <ProjectReference Include="../../Jaywapp.Common/Jaywapp.Common.csproj" />
   </ItemGroup>
 
 </Project>

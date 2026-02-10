@@ -79,12 +79,12 @@ namespace Jaywapp.Infrastructure.Models
         /// <returns></returns>
         private bool Check(object actual, object expect, eFilteringOperator op)
         {
-            if (actual is IComparable actualComparable && expect is IComparable expectComparable)
-                return CheckNumber(actualComparable, expectComparable, op);
+            if (actual is Enum actualEnum && expect is Enum expectEnum)
+                return CheckEnum(actualEnum, expectEnum, op);
             else if (actual is string actualString && expect is string expectString)
                 return CheckString(actualString, expectString, op);
-            else if (actual is Enum actualEnum && expect is Enum expectEnum)
-                return CheckEnum(actualEnum, expectEnum, op);
+            else if (actual is IComparable actualComparable && expect is IComparable expectComparable)
+                return CheckNumber(actualComparable, expectComparable, op);
 
             return false;
         }

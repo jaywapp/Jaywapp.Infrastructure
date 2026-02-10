@@ -17,7 +17,7 @@ namespace Jaywapp.Infrastructure.Models
 
         #region Functions
         /// <inheritdoc/>
-        public bool IsFiltered(object obj) => Children.IsFilterd(obj);
+        public bool IsFiltered(object obj) => Children.IsFiltered(obj);
         #endregion
     }
 }
